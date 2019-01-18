@@ -1,0 +1,18 @@
+.productsContainer {
+    width: 100%;
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: unset;
+    margin: unset;
+    max-width: unset;
+}
+
+
+.productCard {
+    margin: 1%;
+    width: 30%;
+    min-width: 350px;
+}

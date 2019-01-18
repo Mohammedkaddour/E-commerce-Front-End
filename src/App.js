@@ -1,25 +1,27 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import SignUp from "./Components/SignUp/SignUp";
+import SignIn from "./Components/SignIn/SignIn";
+import { Route, Link } from "react-router-dom";
+import NavBar from "./Components/NavBar/NavBar";
+import Home from "./Components/Home/Home";
+import Cart from "./Components/Cart/Cart"
+import "./App.css";
+import Products from "./Components/Products/Products";
+import Orders from "./Components/Cart/Cart";
+import AddProduct from "./Components/AddProduct/AddProduct";
+import UserProfile from "./Components/UserProfile/UserProfile"
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <NavBar />
+        <Route exact={true} path="/" component={Home} />
+        <Route exact={true} path="/SignUp/" component={SignUp} />
+        <Route exact={true} path="/SignIn/" component={SignIn} />
+        <Route exact={true} path="/Products/" component={Products} />
+        <Route exact={true} path="/Cart/" component={Cart} />
+        <Route exact={true} path="/UserProfile/:id" component={UserProfile} />
       </div>
     );
   }
