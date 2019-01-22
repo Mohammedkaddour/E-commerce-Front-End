@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import moment from "moment";
-import { connect } from "react-redux";
+import axios from "axios";
+import moment from "moment"
 import {
   Card,
   CardImg,
@@ -8,78 +8,74 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
+  Jumbotron,
   Button,
   Container,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Col,
   Badge
 } from "reactstrap";
-import axios from "axios";
-import "./Products.css";
+import "./SearchBar.css";
 
-class Products extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userMsg: "",
-      products: []
-    };
-  }
 
-  componentDidMount = () => {
-    setInterval(() => {
-      axios
-        .get("/products")
-        .then(response => {
-          console.log(response);
-          this.setState({ products: response.data.products });
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }, 500);
+class SearchBar extends Component {
+  state = {
+    searchInput: "",
+    results: []
+  };
+  handleSearchInput = e => {
+    this.setState({ searchInput: e.target.value });
   };
 
-  addToCartHandler = id => {
+  handleSearch = () => {
     axios
-      .post(
-        "/addOrder",
-        { id: id },
-        {
-          headers: { authorization: "Bearer " + this.props.token }
-        }
-      )
+      .post("/search", {
+        searchInput: this.state.searchInput
+      })
       .then(response => {
         console.log(response);
+        this.setState({ results: response.data.result });
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
-  };
-
-  changeMsgHandler = e => {
-    this.setState({ userMsg: e.target.value });
-  };
-  sendMsgHandlel = id => {
-    axios
-      .post(
-        "/user/" + id,
-        {
-          message: this.state.userMsg
-        },
-        {
-          headers: { Authorization: "Bearer" + " " + this.props.token }
-        }
-      )
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+      this.setState({searchInput:""})
   };
   render() {
     return (
-      <Container className="productsContainer">
-        {this.state.products.map((product, index) => {
+      <Container>
+        <Jumbotron className="itemJumbotron">
+          <Container className="Jumbcontainer">
+            <h1 className="display-3">Welcome to Buy & Sell</h1>
+            <p className="lead">
+            Buy & Sell No.1 online shopping store for new & used items
+            </p>
+            <hr className="my-2" />
+            <Form inline>
+              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                <Label for="exampleText" className="mr-sm-2">
+                  Search items
+                </Label>
+                <Input
+                  type="text"
+                  name="text"
+                  id="exampleText"
+                  onChange={this.handleSearchInput}
+                  placeholder="Search..."
+                  value={this.state.searchInput}
+                />
+              </FormGroup>
+              <Button color="danger" onClick={this.handleSearch}>
+                Submit
+              </Button>
+            </Form>
+          </Container>
+        </Jumbotron>
+        <Container className="productsContainer">
+        {this.state.results.map(product => {
           return (
             <div key={product._id}>
               <Card className="productCard">
@@ -96,7 +92,6 @@ class Products extends Component {
                   <CardSubtitle>Type : {product.type}</CardSubtitle>
                   <CardSubtitle>Price : {product.price} $</CardSubtitle>
                   <CardText> Model : {product.model}</CardText>
-                  <CardText> Location : {product.createdBy.country} / {product.createdBy.city}</CardText>
                   <CardText>
                     {" "}
                     Condition :
@@ -118,7 +113,7 @@ class Products extends Component {
                     Add to Cart
                   </Button>
                   <hr />
-                  {/* <FormGroup>
+                  <FormGroup>
                  
                     <Input
                       type="textarea"
@@ -137,18 +132,16 @@ class Products extends Component {
                     }
                   >
                     Send Message to {product.createdBy.userName}
-                  </Button> */}
+                  </Button>
                 </CardBody>
               </Card>
             </div>
           );
         })}
+         </Container>
       </Container>
     );
   }
 }
 
-let connectedProducts = connect(store => {
-  return { token: store.token };
-})(Products);
-export default connectedProducts;
+export default SearchBar;

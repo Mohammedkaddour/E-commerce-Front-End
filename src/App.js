@@ -7,8 +7,7 @@ import Home from "./Components/Home/Home";
 import Cart from "./Components/Cart/Cart"
 import "./App.css";
 import Products from "./Components/Products/Products";
-import Orders from "./Components/Cart/Cart";
-import AddProduct from "./Components/AddProduct/AddProduct";
+import Crouton from "react-crouton"
 import UserProfile from "./Components/UserProfile/UserProfile"
 
 class App extends Component {
@@ -16,11 +15,12 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar />
+        {/* <Crouton id={11} type="info" message="Welcome to Buy and Sell"/> */}
         <Route exact={true} path="/" component={Home} />
         <Route exact={true} path="/SignUp/" component={SignUp} />
         <Route exact={true} path="/SignIn/" component={SignIn} />
         <Route exact={true} path="/Products/" component={Products} />
-        <Route exact={true} path="/Cart/" component={Cart} />
+        <Route exact={true} path="/myCart/:id" component={Cart} />
         <Route exact={true} path="/UserProfile/:id" component={UserProfile} />
       </div>
     );

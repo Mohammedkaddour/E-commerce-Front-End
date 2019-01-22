@@ -10,7 +10,10 @@ import * as serviceWorker from './serviceWorker';
 
 let reducer = (state, action) =>{
    if(action.type==="token"){
-       return {... state, token :action.token}
+       return {... state, token :action.token, flageShowProfile: action.flageShowProfile }
+   }
+   if(action.type==="products"){
+     return{... state, products: action.products}
    }
     return state; 
   };
@@ -18,7 +21,7 @@ let reducer = (state, action) =>{
 
   const store = createStore(
    reducer, // reducer
-    {}, // initial state
+    {products:[]}, // initial state
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
 

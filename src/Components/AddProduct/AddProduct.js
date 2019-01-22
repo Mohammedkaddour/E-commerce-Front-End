@@ -10,10 +10,9 @@ class addProduct extends Component {
     price: "",
     quantity: "",
     prodImg: null,
-    type:"",
-    model:"",
-    condition:""
-
+    type: "",
+    model: "",
+    condition: ""
   };
 
   categoryHandler = e => {
@@ -55,7 +54,7 @@ class addProduct extends Component {
     fd.append("description", this.state.description);
     fd.append("price", this.state.price);
     fd.append("quantity", this.state.quantity);
-    
+
     axios
       .post("/addProduct", fd, {
         headers: { Authorization: "Bearer" + " " + this.props.token }
@@ -66,6 +65,16 @@ class addProduct extends Component {
       .catch(error => {
         console.log(error);
       });
+    this.setState({
+      category: "",
+      description: "",
+      price: "",
+      quantity: "",
+      prodImg: null,
+      type: "",
+      model: "",
+      condition: ""
+    });
   };
   render() {
     return (
@@ -78,6 +87,7 @@ class addProduct extends Component {
             name="Category"
             id="exampleProduct"
             placeholder="Product Category"
+            value={this.state.category}
           />
         </FormGroup>
         <FormGroup>
@@ -88,6 +98,7 @@ class addProduct extends Component {
             name="Type"
             id="exampleType"
             placeholder="Product Type"
+            value={this.state.type}
           />
         </FormGroup>
         <FormGroup>
@@ -98,6 +109,7 @@ class addProduct extends Component {
             name="Model"
             id="exampleModel"
             placeholder="Product Model"
+            value={this.state.model}
           />
         </FormGroup>
         <FormGroup>
@@ -107,7 +119,8 @@ class addProduct extends Component {
             type="text"
             name="Condition"
             id="exampleCondition"
-            placeholder="Product Condition"
+            placeholder="Good Condition, Used, New"
+            value={this.state.condition}
           />
         </FormGroup>
         <FormGroup>
@@ -118,6 +131,7 @@ class addProduct extends Component {
             name="price"
             id="examplePrice"
             placeholder="Product price"
+            value={this.state.price}
           />
         </FormGroup>
         <FormGroup>
@@ -128,6 +142,7 @@ class addProduct extends Component {
             name="quantity"
             id="exampleQuantity"
             placeholder="how many products avaliable"
+            value={this.state.quantity}
           />
         </FormGroup>
         <FormGroup>
@@ -137,6 +152,7 @@ class addProduct extends Component {
             name="text"
             id="exampleText"
             onChange={this.descriptionHandler}
+            value={this.state.description}
           />
         </FormGroup>
         <FormGroup>
@@ -146,12 +162,13 @@ class addProduct extends Component {
             name="file"
             id="exampleFile"
             onChange={this.prodImgHandler}
+           
           />
           <FormText color="muted">
             By clicking Submit your product will be ready for sale
           </FormText>
         </FormGroup>
-        <Button onClick={this.addProductHandler}>Submit</Button>
+        <Button color="primary" onClick={this.addProductHandler}>Submit</Button>
       </Form>
     );
   }

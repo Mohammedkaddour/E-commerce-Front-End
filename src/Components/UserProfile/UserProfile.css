@@ -1,5 +1,47 @@
-.userImg {
+.usercard-Container{
+  width: 100%;
+  background-image: url("https://images.pexels.com/photos/547114/pexels-photo-547114.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+}
+
+
+.usercard-Img {
   margin: 1%;
   width: 30%;
   min-width: 350px;
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+ 
+}
+.usercard-body1{
+  position: relative;
+  text-align: center;
+  left: 25%;
+  top: 50%;
+  width: 50%;
+ 
+  padding: 10px;
+}
+.usercard-title{
+  font-size: 60px;
+}
+.usercard-subtitle{
+  font-size: 25px;
+}
+.usercard-summary{
+  font-size: 20px;
+  border: 0.5px solid gray;
+  padding: 10px;
+}
+.userproducts{
+  width: 100%;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: unset;
+  margin-top: 5%;
+  max-width: unset;
 }
