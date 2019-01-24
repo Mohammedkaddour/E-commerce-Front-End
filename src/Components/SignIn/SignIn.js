@@ -33,7 +33,8 @@ class SignIn extends Component {
           token: response.data.token,
           flageShowProfile: response.data.success
         });
-        this.props.history.push("/UserProfile/" + response.data.id);
+        if(response.data.token){this.props.history.push("/UserProfile/" + response.data.id);}
+        
       })
       .catch(error => {
         console.log(error);
